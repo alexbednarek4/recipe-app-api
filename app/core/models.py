@@ -13,7 +13,8 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("Users must have an email address")
         # You can access the model that the manager is for by typing self.model
-        # Essentially creating a new user model and assigning it to the user variable
+        # Essentially creating a new user model
+        # and assigning it to the user variable
         user = self.model(email=self.normalize_email(email), **extra_fields)
         # encrypt password
         user.set_password(password)
