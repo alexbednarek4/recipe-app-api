@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 # This class provides methods that help create users
-# It creates a new user model, sets and encrypts password, then saves the model and returns the user
+# It creates a new user model, sets and encrypts password,
+# then saves the model and returns the user
 
 
 class UserManager(BaseUserManager):
@@ -31,12 +32,11 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """ Custom user model that supports using email instead of username"""
     email = models.EmailField(
-        max_length=255, unique=True)  # unique creating one user with one email
+        # unique creating one user with one email
+        max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
-
-# now customize user model in settings.py file
