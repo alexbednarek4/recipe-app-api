@@ -5,7 +5,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 from core import models
 
+
 class UserAdmin(BaseUserAdmin):
+
     ordering = ['id']
     list_display = ['email', 'name']
     # Define sections for fieldsets in our change and create page
