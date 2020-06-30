@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from core import models
 # Converting strings in python to human readible text
 # Passing through translation engine
 from django.utils.translation import gettext as _
-
+from core import models
 
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
