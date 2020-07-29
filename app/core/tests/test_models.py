@@ -1,5 +1,12 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from core import models
+# Helper function for creating users in tests
+
+
+def sample_user(email='test@alex.com', password='testpass'):
+    """ Create a sample user"""
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelTests(TestCase):
@@ -38,3 +45,14 @@ class ModelTests(TestCase):
         # is_superuser is included in PermissionsMIxin
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_tag_str(self):
+        """ Test creating a tag and verifies """
+        """that it creates correct string representation"""
+        tag = models.Tag.objects.create(
+            user=sample_user(),
+            name='Vegan'
+        )
+        # Assert that when we convert our tag model to a string
+        # it will give us the name
+        self.assertEqual(str(tag), tag.name)
