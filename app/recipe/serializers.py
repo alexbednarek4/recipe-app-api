@@ -42,3 +42,14 @@ class RecipeSerializer(serializers.ModelSerializer):
                   'price', 'link'
                   )
         read_only_fields = ('id',)
+
+
+class RecipeDetailSerializer(RecipeSerializer):
+    """Serialize a recipe detail"""
+
+    # in Django REST framework we can
+    # nest serializers
+    # many = many recipes associated
+    # read only works for our detail view
+    ingredients = IngredientSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
