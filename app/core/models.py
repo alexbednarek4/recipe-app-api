@@ -70,8 +70,10 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    """REcipe object"""
+    """Recipe object"""
     # Assign fields (db columns)
+    # Each recipe assigned to one user so
+    # we use foreign key
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -79,6 +81,8 @@ class Recipe(models.Model):
     title = models.CharField(max_length=255)
     time_minutes = models.IntegerField()
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    # blank=True, field indicates blank string
+    # easier for debugging
     link = models.CharField(max_length=255, blank=True)
     # Diff types of foreign keys in a db
     # Many recipes assigned to many ingredients
