@@ -1,3 +1,5 @@
+import uuid
+import os
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
@@ -5,6 +7,13 @@ from django.conf import settings
 # This class provides methods that help create users
 # It creates a new user model, sets and encrypts password,
 # then saves the model and returns the user
+
+
+def recipe_image_file_path(instance, filename):
+    """Generate filepath for new recipe image"""
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+    return os.path.join('uploads/recipe/', filename)
 
 
 class UserManager(BaseUserManager):
@@ -88,6 +97,8 @@ class Recipe(models.Model):
     # Many recipes assigned to many ingredients
     ingredients = models.ManyToManyField('Ingredient')
     tags = models.ManyToManyField('Tag')
+    # ImageField (via Django) calls the recipe_image_file_path in background
+    image = models.ImageField(null=True, upload_to=recipe_image_file_path)
 
     def __str__(self):
         return self.title
